@@ -1,4 +1,4 @@
-#include "store_information_and_amaliat.h"
+#include "store_information_and_operations.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -7,7 +7,7 @@
 #define Green "\033[32m"
 #define Yellow "\033[33m"
 #define Blue "\033[34m"
-int login(struct ATM *store){
+int login(struct ATM *account){
     printf(Yellow"             login\n");
     printf("----------------------------------"Reset);
     char ID[100];
@@ -28,7 +28,7 @@ int login(struct ATM *store){
     int i=0;
     //check the account was found or not
     for ( i=0;i<29;i++){
-        if (strcmp(store->Account_information[i].id,ID)==0 && strcmp(store->Account_information[i].password,password)==0){
+        if (strcmp(account->Account_information[i].id,ID)==0 && strcmp(account->Account_information[i].password,password)==0){
             return i;
         }
     }

@@ -15,6 +15,7 @@
                 "deposit.c",
                 "balance.c",
                 "transfer.c",
+                "transaction_operation.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

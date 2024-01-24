@@ -1,13 +1,14 @@
-#include "store_information_and_amaliat.h"
+#include "store_information_and_operations.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 #define Reset "\033[0m"
 #define Red "\033[31m"
 #define Green "\033[32m"
 #define Yellow "\033[33m"
 #define Blue "\033[34m"
-void menu(struct ATM *store,int index){
-    printf(Green"\n         Welcome to ATM %s\n",store->Account_information[index].first_name);
+void menu(struct ATM *account,int index){
+    printf(Green"\n         Welcome to ATM %s\n",account->Account_information[index].first_name);
     printf("----------------------------------------------------\n"Reset);
     printf("Enter");
     printf(Yellow" 1");
@@ -17,10 +18,13 @@ void menu(struct ATM *store,int index){
     printf(Reset" for deposit\n");
      printf("Enter");
     printf(Yellow" 3");
-    printf(Reset" To check the balance\n");
+    printf(Reset" to check the balance\n");
      printf("Enter");
     printf(Yellow" 4");
-    printf(Reset" To transfer money\n");
+    printf(Reset" to transfer money\n");
+    printf("Enter");
+    printf(Yellow" 5");
+    printf(Reset" to check financial transactions\n" );
     printf("Enter");
     printf(Red" 0");
     printf(Reset" for exit\n");
@@ -34,34 +38,39 @@ void menu(struct ATM *store,int index){
         exit(0);
         break;
     case 1:
-        withdraw(store,index);
+        withdraw(account,index);
         break;
     case 2:
-        deposit(store,index);
+        deposit(account,index);
         break;
     case 3:
-        check_balance(store,index);
+        check_balance(account,index);
         break;
     case 4:
-        transfer_money(store,index);
+        transfer_money(account,index);
+        break;
+    case 5:
+        char name_file[20];
+        sprintf(name_file,"%d",account->Account_information[index].Account_number);
+        show_transaction(name_file,account,index);
         break;
     default:
         printf(Red"Please enter the appropriate option!\n"Reset);
-        menu(store,index);
+        menu(account,index);
 }
 
 }
 int main(){
     //We create a structure that is defined in the header file
-    struct ATM store;
-    //We take the information from the data file and store it in the structure
-    ATM_initializer(&store);
+    struct ATM account;
+    //We take the information from the data file and account it in the structure
+    ATM_initializer(&account);
     // in this section we login in the ATM
-    int index_hesab=login(&store);
+    int index_hesab=login(&account);
     while(index_hesab<0){
-        index_hesab=login(&store);
+        index_hesab=login(&account);
     }
     //When the login is finished, we are opening the menu
-    menu(&store,index_hesab);
+    menu(&account,index_hesab);
     return 0;
 }
