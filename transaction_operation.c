@@ -64,14 +64,17 @@ void readfile_transaction(char name_file[]) {
 void withdraw_transaction(int amount_withdrawn, char name_file[],struct ATM *account,int index_account) {
     readfile_transaction(name_file);
     int len = 0;
+    //Gets the length of the array
     while (temp.Amount_exchanged[len] != 0&& len<10) {
         len++;
     }
+    //If the length of the array is less than ten, it adds the information to the end of the array
     if (len < 10) {
         temp.Amount_exchanged[len] = amount_withdrawn;
         temp.balance[len]=account->Account_information[index_account].balance_account;
         strcpy(temp.status_of_exchanged[len], "withdrawal");
         len++;
+    //If the length of the array is less than ten, it moves the array information back by one and then adds the information to the end of the array
     } else {
         for (int i = 0; i < 10; i++) {
             temp.Amount_exchanged[i] = temp.Amount_exchanged[i + 1];
