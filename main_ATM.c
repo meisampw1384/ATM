@@ -7,58 +7,74 @@
 #define Green "\033[32m"
 #define Yellow "\033[33m"
 #define Blue "\033[34m"
-void menu(struct ATM *account,int index){
+#define ClearScreen "\033[H\033[J"
+
+void display_with_button(int selected_button,struct ATM *account,int index){
+    printf(ClearScreen);
     printf(Green"\n         Welcome to ATM %s\n",account->Account_information[index].first_name);
     printf("----------------------------------------------------\n"Reset);
-    printf("Enter");
-    printf(Yellow" 1");
-    printf(Reset" to withdraw from the account\n");
-     printf("Enter");
-    printf(Yellow" 2");
-    printf(Reset" for deposit\n");
-     printf("Enter");
-    printf(Yellow" 3");
-    printf(Reset" to check the balance\n");
-     printf("Enter");
-    printf(Yellow" 4");
-    printf(Reset" to transfer money\n");
-    printf("Enter");
-    printf(Yellow" 5");
-    printf(Reset" to check financial transactions\n" );
-    printf("Enter");
-    printf(Red" 0");
-    printf(Reset" for exit\n");
-    int n;
-    printf(Green"Enter the number:"Reset);
-    scanf("%d",&n);
-    printf("\n");
-    switch (n)
-    {
-    case 0:
-        exit(0);
-        break;
-    case 1:
-        withdraw(account,index);
-        break;
-    case 2:
-        deposit(account,index);
-        break;
-    case 3:
-        check_balance(account,index);
-        break;
-    case 4:
-        transfer_money(account,index);
-        break;
-    case 5:
-        char name_file[20];
-        sprintf(name_file,"%d",account->Account_information[index].Account_number);
-        show_transaction(name_file,account,index);
-        break;
-    default:
-        printf(Red"Please enter the appropriate option!\n"Reset);
-        menu(account,index);
+    for (int i=0;i<5;i++){
+        if (i==selected_button){
+            printf(Blue"-> ");
+        }
+        printf("%d.",i+1);
+        switch (i)
+        {
+            case 0:
+               printf("withdraw\n");
+                break;
+            case 1:
+                printf("deposit\n");
+                break;
+            case 2:
+                printf("check the balance\n");
+                break;
+            case 3:
+                printf("transfer money\n");
+                break;
+            case 4:
+                printf("check the financial transactions\n");
+                break;
+        }
+    }
+    printf(Red"Press on <esc> for exit"Reset);
 }
+void menu(struct ATM *account,int index){
+    printf(ClearScreen);
+    printf(Green"\n         Welcome to ATM %s\n",account->Account_information[index].first_name);
+    printf("----------------------------------------------------\n"Reset);
 
+    int input;
+    int selected_button;
+    do {
+    switch (input)
+    {
+        case 72://up arrow key
+            selected_button-=1;
+            if (selected_button<0){
+                selected_button=4;
+            }
+            break;
+        case 80://down arrow key
+            selected_button+=1;
+            if (selected_button>4){
+                selected_button=0;
+            }
+            break;
+            
+        case 13:
+            if (selected_button==0){
+                withdraw(account,index);
+            }
+            else if (selected_button==1){
+                deposit(account,index);
+            }
+            else if (selected_button==2){
+                check_balance(account,index);
+            }
+            else if(selected_button==)
+    }
+    }while(input!=13);//when press on enter,the loop is finished
 }
 int main(){
     //We create a structure that is defined in the header file
