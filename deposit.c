@@ -1,14 +1,18 @@
 #include <stdio.h>
+#include <conio.h>
+#include <windows.h>
 #include "store_information_and_operations.h"
 #define Reset "\033[0m"
 #define Red "\033[31m"
 #define Green "\033[32m"
 #define Yellow "\033[33m"
 #define Blue "\033[34m"
+#define ClearScreen "\033[H\033[J"
 
 // function to handle depositing money into an account
-void deposit(struct ATM *account, int index) {
-    int inedx_hesab = index;
+void deposit(struct ATM *account, int index_account) {
+    printf(ClearScreen);
+    int inedx_hesab = index_account;
     int deposit_money;
     int balance_before = account->Account_information[inedx_hesab].balance_account;
     
@@ -20,11 +24,12 @@ void deposit(struct ATM *account, int index) {
     
     // checking if user wants to go back to the main menu
     if (deposit_money == 0) {
-        menu(account, index);
+        menu(account, index_account);
     }
     if(deposit_money<0){
         printf(Red"\n The choice is not valid\n"Reset);
-        menu(account,index);
+        Sleep(1500);
+        menu(account,index_account);
     }
     else {
         // adding the deposited amount to the account balance
@@ -43,14 +48,13 @@ void deposit(struct ATM *account, int index) {
         ATM_exit(account);
         char name_file[20];
         //convert int to string
-        sprintf(name_file,"%d",account->Account_information[index].Account_number);
+        sprintf(name_file,"%d",account->Account_information[index_account].Account_number);
         deposit_transaction(deposit_money,name_file,account,inedx_hesab);
-        int exit;
-        printf(Red"Enter 0 for go to menu:"Reset);
-        scanf("%d", &exit);
-        printf("\n");
-        if (exit == 0) {
-            menu(account, index);
+        printf(Red"Press on <esc> for Exit"Reset);
+        int input;
+        input=getch();
+        if (input== 27) {
+            menu(account, index_account);
         }
     }
 }
