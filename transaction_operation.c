@@ -1,6 +1,9 @@
 #include "store_information_and_operations.h"
 #include <stdio.h>
 #include <string.h> 
+#include <conio.h>
+
+#define ClearScreen "\033[H\033[J"
 #define Reset "\033[0m"
 #define Red "\033[31m"
 #define Green "\033[32m"
@@ -113,7 +116,8 @@ void deposit_transaction(int amount_deposit, char name_file[],struct ATM *accoun
     writefile_transaction(name_file);
     reset_struct();
 }
-void show_transaction(char name_file[],struct ATM* account,int index) {
+void show_transaction(char name_file[],struct ATM* account,int index_account) {
+    printf(ClearScreen);
    readfile_transaction(name_file);
     int len=0;
     while(temp.Amount_exchanged[len]!=0&&len<10){
@@ -127,11 +131,14 @@ void show_transaction(char name_file[],struct ATM* account,int index) {
         }
     }
     printf(Reset"\n");
-    printf(Red "for Exit enter 0:" Reset);
-    int e;
-    scanf("%d", &e);
-    printf("\n");
-    reset_struct();
-    menu(account,index);
+    printf(Red "Press on <esc> for Exit" Reset);
+    int input;
+    input=getch();
+    if (input==27){
+          reset_struct();
+          menu(account,index_account);
+    }
+
+   
    
 }

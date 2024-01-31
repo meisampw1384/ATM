@@ -23,29 +23,29 @@ void ATM_initializer(struct ATM *account);
 void ATM_exit(struct ATM *account);
 
 //this function login in to ATM
-int  login(struct ATM *account);
+int  menu_login(struct ATM *account);
 
 //this function give the menu or operations
-void menu(struct ATM *account,int index);
+void menu(struct ATM *account,int index_account);
 
 //this function take money from your account
-void withdraw(struct ATM *account,int index);
+void withdraw(struct ATM *account,int index_account);
 
 //this function invest money in your account
-void deposit(struct ATM *account,int index);
+void deposit(struct ATM *account,int index_account);
 
 //this function check your amount of balance
-void check_balance(struct ATM *account,int index);
+void check_balance(struct ATM *account,int index_account);
 
 //this function transfer money in another account
-void transfer_money(struct ATM *account,int index);
+void transfer_money(struct ATM *account,int index_account);
 
 
 
 //All the following functions are for transaction capture
 
 //this function show transaction for user
-void show_transaction(char name[],struct ATM *account,int index);
+void show_transaction(char name[],struct ATM *account,int index_account);
 //this function shows the transactions that have been added to the money account.
 void deposit_transaction(int amount_deposit,char name[],struct ATM *account,int index_account);
 //This function shows the transactions that have been removed from the money account.
