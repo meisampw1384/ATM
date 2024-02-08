@@ -19,7 +19,7 @@ void display_menu_button(int selected_button, struct ATM *account, int index_acc
     {
         if (i == selected_button)
         {
-            printf(Blue "-> "Reset);
+            printf(Blue "-> " Reset);
         }
         printf("%d.", i + 1);
         switch (i)
@@ -50,11 +50,11 @@ void menu(struct ATM *account, int index_account)
     printf("----------------------------------------------------\n" Reset);
 
     int input;
-    int selected_button=0;
+    int selected_button = 0;
     do
     {
-        display_menu_button(selected_button,account,index_account);
-        input=getch();
+        display_menu_button(selected_button, account, index_account);
+        input = getch();
         switch (input)
         {
         case 72: // up arrow key
@@ -71,10 +71,10 @@ void menu(struct ATM *account, int index_account)
                 selected_button = 0;
             }
             break;
-        case 27://esc key
+        case 27: // esc key
             exit(0);
             break;
-        case 13://enter key
+        case 13: // enter key
             if (selected_button == 0)
             { // withdraw_money
                 withdraw(account, index_account);
